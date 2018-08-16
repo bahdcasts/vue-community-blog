@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import Axios from "axios";
+
 export default {
   data() {
     return {
@@ -33,7 +35,17 @@ export default {
   },
   methods: {
     registerUser() {
-      console.log(this.name, this.email, this.password);
+      Axios.post("https://react-blog-api.bahdcasts.com/api/auth/register", {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+        });
     }
   }
 };
