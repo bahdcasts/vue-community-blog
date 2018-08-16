@@ -44,6 +44,8 @@ export default {
           const { data } = response.data;
           localStorage.setItem('auth', JSON.stringify(data))
           this.$root.auth = data;
+
+          this.$router.push('home');
         })
         .catch(({ response }) => {
           console.log(response);
