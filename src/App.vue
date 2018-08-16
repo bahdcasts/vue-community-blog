@@ -1,27 +1,29 @@
 <template>
   <div id="app">
+    <Navbar />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navbar from "@/components/Navbar";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    Navbar
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  * {
+    font-family: 'Poppins';
+    border-radius: 0px !important;
+  }
+
+  body {
+    background-color: #f5f3ef;
+  }
 </style>
+
