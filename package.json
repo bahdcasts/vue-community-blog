@@ -9,7 +9,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.17",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuejs-noty": "^0.1.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0",
