@@ -32,9 +32,6 @@
 
 <script>
 export default {
-  mounted() {
-    console.log(this.$root);
-  },
   computed: {
     authUser() {
       return this.$root.auth.user;
