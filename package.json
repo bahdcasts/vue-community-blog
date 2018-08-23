@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.17",
+    "vue-disqus": "^3.0.4",
     "vue-router": "^3.0.1",
     "vuejs-noty": "^0.1.3"
   },
