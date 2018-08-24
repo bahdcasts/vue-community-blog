@@ -10,6 +10,7 @@
     "axios": "^0.18.0",
     "vue": "^2.5.17",
     "vue-disqus": "^3.0.4",
+    "vue-picture-input": "^2.1.6",
     "vue-router": "^3.0.1",
     "vue-wysiwyg": "^1.7.2",
     "vuejs-noty": "^0.1.3"
