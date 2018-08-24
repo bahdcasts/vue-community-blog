@@ -9,7 +9,13 @@
               size="5"
               button-class="btn btn-danger"
               @change="onChange" />
-            <input type="text" placeholder="Title" class="mb-3 form-control">
+            <select class="form-control my-3" v-model="category">
+              <option selected>Select a Category</option>
+              <option :value="category.id" :key="category.id" v-for="category in categories">
+                {{ category.name }}
+              </option>
+            </select>
+            <input type="text" placeholder="Title" class="my-3 form-control">
             <wysiwyg v-model="content" />
             <div class="text-center">
               <button @click="createArticle()" class="btn-success btn btn-lg mt-3">Create Article</button>
@@ -22,12 +28,13 @@
 </template>
 
 <script>
-import Axios from 'axios';
+import Axios from "axios";
+import config from "@/config";
 import PictureInput from "vue-picture-input";
 
 export default {
   mounted() {
-    console.log(process.env);
+    this.getCategories();
   },
   components: {
     PictureInput
@@ -35,7 +42,9 @@ export default {
   data() {
     return {
       content: "",
-      image: null
+      image: null,
+      categories: [],
+      category: ""
     };
   },
   methods: {
@@ -44,12 +53,25 @@ export default {
     },
     createArticle() {
       const form = new FormData();
-      form.append('file', this.image);
-      form.append('upload_preset', process.env.VUE_APP_CLOUDINARY_PRESET);
-      form.append('api_key', process.env.VUE_APP_CLOUDINARY_API_KEY);
+      form.append("file", this.image);
+      form.append("upload_preset", process.env.VUE_APP_CLOUDINARY_PRESET);
+      form.append("api_key", process.env.VUE_APP_CLOUDINARY_API_KEY);
 
-      Axios.post(process.env.VUE_APP_CLOUDINARY_URL, form)
-        .then(res => console.log(res));
+      Axios.post(process.env.VUE_APP_CLOUDINARY_URL, form).then(res =>
+        console.log(res)
+      );
+    },
+    getCategories() {
+      const categories = localStorage.getItem("categories");
+
+      if (categories) {
+        this.categories = JSON.parse(categories);
+        return;
+      }
+      Axios.get(`${config.apiUrl}/categories`).then(res => {
+        this.categories = res.data.categories;
+        localStorage.setItem("categories", JSON.stringify(this.categories));
+      });
     }
   }
 };
