@@ -26,6 +26,9 @@ import Axios from 'axios';
 import PictureInput from "vue-picture-input";
 
 export default {
+  mounted() {
+    console.log(process.env);
+  },
   components: {
     PictureInput
   },
@@ -42,10 +45,10 @@ export default {
     createArticle() {
       const form = new FormData();
       form.append('file', this.image);
-      form.append('upload_preset', 'g5ziunzg');
-      form.append('api_key', '132255634713478');
+      form.append('upload_preset', process.env.VUE_APP_CLOUDINARY_PRESET);
+      form.append('api_key', process.env.VUE_APP_CLOUDINARY_API_KEY);
 
-      Axios.post('https://api.cloudinary.com/v1_1/bahdcoder/image/upload', form)
+      Axios.post(process.env.VUE_APP_CLOUDINARY_URL, form)
         .then(res => console.log(res));
     }
   }
