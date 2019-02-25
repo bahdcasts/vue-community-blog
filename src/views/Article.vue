@@ -2,6 +2,7 @@
   <div class="container my-5">
     <div class="row">
       <div class="col-md-10 offset-md-1">
+        <router-link to="/" class="btn btn-warning mb-3">Back</router-link>
         <div class="card" v-if="!loading">
           <img height="420px" :src="article.imageUrl" alt="" class="card-img-top">
           <div class="card-body">
