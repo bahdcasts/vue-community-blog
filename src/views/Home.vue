@@ -2,7 +2,12 @@
   <div>
     <div class="d-flex mt-4 justify-content-between">
       <button @click="getPrevArticles()" :disabled="articles.prev_page_url === null" class="btn btn-warning">Prev Page</button>
+        <span>{{ articles.current_page }}</span>
       <button @click="getNextArticles()" :disabled="articles.next_page_url === null" class="btn btn-warning">Next Page</button>
+    </div>
+    <div class="d-flex justify-content-between">
+        <button @click="getFirstPageArticles()" :disabled="articles.prev_page_url === null" class="btn btn-sm mt-3 btn-outline-primary">First</button>
+        <button @click="getLastPageArticles()" :disabled="articles.next_page_url === null" class="btn btn-sm mt-3 btn-outline-primary last-button">Last</button>
     </div>
     <div class="row" v-if="!loading">
       <div class="col-md-8 offset-md-2" v-for="article in articles.data" :key="article.id">
@@ -26,20 +31,23 @@ export default {
     Article
   },
   mounted() {
+    this.getCurrentPage();
     this.getArticles();
   },
   data() {
     return {
       articles: {},
-      loading: true
+      loading: true,
+      currentPage: 1
     };
   },
   methods: {
-    getArticles(url = `${config.apiUrl}/articles`) {
+    getArticles(url = `${config.apiUrl}/articles/?page=`+this.currentPage) {
       this.loading = true;
       Axios.get(url).then(response => {
         this.loading = false;
         this.articles = response.data.data;
+        localStorage.setItem('currentPage', JSON.stringify(this.articles.current_page))
       });
     },
     getNextArticles() {
@@ -47,7 +55,18 @@ export default {
     },
     getPrevArticles() {
       this.getArticles(this.articles.prev_page_url);
+    },
+    getFirstPageArticles() {
+      this.getArticles(`${config.apiUrl}/articles/?page=1`)
+    },
+    getLastPageArticles() {
+      this.getArticles(`${config.apiUrl}/articles/?page=`+this.articles.last_page)
+    },
+    getCurrentPage() {
+      this.currentPage = localStorage.getItem('currentPage');
+      this.currentPage=(JSON.parse(this.currentPage));
     }
+
   }
 };
 </script>
